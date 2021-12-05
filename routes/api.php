@@ -45,8 +45,10 @@ Route::prefix('admin')->group(function () {
         //Category route
         Route::apiResource('/categories', CategoryController::class, ['except' => ['create', 'edit'], 'as' => 'admin']);
 
+        //Products route
         Route::apiResource('/products', ProductController::class, ['except' => ['create', 'edit'], 'as' => 'admin']);
 
+        //sliders route
         Route::apiResource('/sliders', SliderController::class, ['except' => ['create', 'show', 'edit', 'update'], 'as' => 'admin']);
     });
 });
