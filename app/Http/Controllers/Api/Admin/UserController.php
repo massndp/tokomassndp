@@ -36,7 +36,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => Hash::make($request->password)
         ]);
 
         if ($user) {
@@ -57,8 +57,9 @@ class UserController extends Controller
         return new UserResource(false, 'Detail data user tidak ditemukan', null);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $user = User::find($id);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $user->id,
@@ -70,14 +71,14 @@ class UserController extends Controller
         }
 
         if ($request->password == "") {
-            $user->update([
+            $user = User::find($id)->update([
                 'name' => $request->name,
                 'email' => $request->email
             ]);
         }
 
         //update with new password
-        $user->update([
+        $user = User::find($id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
