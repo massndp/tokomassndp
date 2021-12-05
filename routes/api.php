@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\LoginController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Admin\UserController;
@@ -30,6 +31,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/user', [LoginController::class, 'getUser', ['as' => 'admin']]);
         Route::get('/refresh', [LoginController::class, 'refreshToken', ['as' => 'admin']]);
         Route::post('/logout', [LoginController::class, 'logout', ['as' => 'admin']]);
+
+        Route::get('/dashboard', [DashboardController::class, 'index', ['as' => 'admin']]);
 
         Route::apiResource('/users', UserController::class, ['except' => ['create', 'edit'], 'as' => 'admin']);
 

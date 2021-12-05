@@ -20,9 +20,12 @@ class DashboardController extends Controller
         //year
         $year = date('Y');
 
+
+
+
         //chart
         $transactions = DB::table('invoices')
-            ->addSelect(DB::raw('SUM(grand_total as grand_total'))
+            ->addSelect(DB::raw('SUM(grand_total) as grand_total'))
             ->addSelect(DB::raw('MONTH(created_at) as month'))
             ->addSelect(DB::raw('MONTHNAME(created_at) as month_name'))
             ->addSelect(DB::raw('YEAR(created_at) as year'))
@@ -31,18 +34,15 @@ class DashboardController extends Controller
             ->groupBy('month')
             ->orderByRaw('month ASC')
             ->get();
-
-
         if (count($transactions)) {
             foreach ($transactions as $result) {
                 $month_name[] = $result->month_name;
-                $grand_total[] = $result->grand_total;
+                $grand_total[] = (int)$result->grand_total;
             }
         } else {
-            $month_name = "";
-            $grand_total = "";
+            $month_name[] = "";
+            $grand_total[] = "";
         }
-
 
         return response()->json([
             'success' => true,
