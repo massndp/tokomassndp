@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Customer extends Authenticatable implements JWTSubject
 {
     use HasFactory;
 
@@ -30,5 +32,15 @@ class Customer extends Model
         $value = Carbon::parse($date);
         $parse = $value->locale('id');
         return $parse->translatedFormat('l, d F Y');
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
