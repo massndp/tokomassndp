@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\CustomerController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\InvoiceController;
 use App\Http\Controllers\Api\Admin\LoginController;
@@ -51,6 +52,9 @@ Route::prefix('admin')->group(function () {
 
         //Invoice route
         Route::apiResource('/invoices', InvoiceController::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'admin']);
+
+        //customer route
+        Route::apiResource('/customers', CustomerController::class, ['except' => ['create', 'show', 'store', 'edit', 'update', 'destroy'], 'as' => 'admin']);
 
         //sliders route
         Route::apiResource('/sliders', SliderController::class, ['except' => ['create', 'show', 'edit', 'update'], 'as' => 'admin']);
