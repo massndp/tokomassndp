@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\LoginController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Admin\UserController;
+use App\Http\Controllers\Api\Customer\DashboardController as CustomerDashboardController;
 use App\Http\Controllers\Api\Customer\LoginController as CustomerLoginController;
 use App\Http\Controllers\Api\Customer\RegisterController;
 use Illuminate\Http\Request;
@@ -72,12 +73,16 @@ Route::prefix('customer')->group(function () {
 
     Route::group(['middleware' => 'auth:api_customer'], function () {
 
-        //getcustomer
+        //getcustomer route
         Route::get('/get-customer', [CustomerLoginController::class, 'getCustomer'], ['as' => 'customer']);
 
-        //refresh token
+        //refresh token route
         Route::get('/refresh-token', [CustomerLoginController::class, 'refreshToken'], ['as' => 'customer']);
 
+        //logout route
         Route::post('/logout', [CustomerLoginController::class, 'logout'], ['as' => 'customer']);
+
+        //Dashboard Route
+        Route::get('/dashboard', [CustomerDashboardController::class, 'index'], ['as' => 'customer']);
     });
 });
