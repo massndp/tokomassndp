@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\LoginController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Admin\UserController;
+use App\Http\Controllers\Api\Customer\LoginController as CustomerLoginController;
 use App\Http\Controllers\Api\Customer\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -65,4 +66,18 @@ Route::prefix('admin')->group(function () {
 Route::prefix('customer')->group(function () {
 
     Route::post('/register', [RegisterController::class, 'store'], ['as' => 'admin']);
+
+    //login
+    Route::post('/login', [CustomerLoginController::class, 'index'], ['as' => 'customer']);
+
+    Route::group(['middleware' => 'auth:api_customer'], function () {
+
+        //getcustomer
+        Route::get('/get-customer', [CustomerLoginController::class, 'getCustomer'], ['as' => 'customer']);
+
+        //refresh token
+        Route::get('/refresh-token', [CustomerLoginController::class, 'refreshToken'], ['as' => 'customer']);
+
+        Route::post('/logout', [CustomerLoginController::class, 'logout'], ['as' => 'customer']);
+    });
 });
