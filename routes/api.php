@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Customer\InvoiceController as CustomerInvoiceContro
 use App\Http\Controllers\Api\Customer\LoginController as CustomerLoginController;
 use App\Http\Controllers\Api\Customer\RegisterController;
 use App\Http\Controllers\Api\Customer\ReviewController;
+use App\Http\Controllers\Api\Web\CategoryContoller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -93,4 +94,9 @@ Route::prefix('customer')->group(function () {
         //route review
         Route::post('/reviews', [ReviewController::class, 'store'], ['as' => 'customer']);
     });
+});
+
+Route::prefix('web')->group(function () {
+
+    Route::apiResource('/categories', CategoryContoller::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
 });
