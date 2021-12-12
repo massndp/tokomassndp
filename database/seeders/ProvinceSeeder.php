@@ -18,7 +18,7 @@ class ProvinceSeeder extends Seeder
         //Fetch Rest API
         $response = Http::withHeaders([
             'key' => config('services.rajaongkir.key'),
-        ])->get('https://rajaongkir.com/starter/province');
+        ])->get('https://api.rajaongkir.com/starter/province');
 
         //looping data from Rest API
         foreach ($response['rajaongkir']['results'] as $province) {
