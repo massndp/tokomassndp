@@ -17,6 +17,8 @@ class ProductController extends Controller
             ->when(request()->q, function ($products) {
                 $products = $products->where('title', 'like', '%' . request()->q . '%');
             })->latest()->paginate(5);
+
+        return new ProductResource(true, 'List data product', $products);
     }
 
     public function show($slug)
