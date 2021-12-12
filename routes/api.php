@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Customer\LoginController as CustomerLoginController
 use App\Http\Controllers\Api\Customer\RegisterController;
 use App\Http\Controllers\Api\Customer\ReviewController;
 use App\Http\Controllers\Api\Web\CategoryContoller;
+use App\Http\Controllers\Api\Web\ProductController as WebProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -99,4 +100,6 @@ Route::prefix('customer')->group(function () {
 Route::prefix('web')->group(function () {
 
     Route::apiResource('/categories', CategoryContoller::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
+
+    Route::apiResource('/products', WebProductController::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
 });
