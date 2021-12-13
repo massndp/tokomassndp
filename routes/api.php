@@ -13,11 +13,13 @@ use App\Http\Controllers\Api\Customer\InvoiceController as CustomerInvoiceContro
 use App\Http\Controllers\Api\Customer\LoginController as CustomerLoginController;
 use App\Http\Controllers\Api\Customer\RegisterController;
 use App\Http\Controllers\Api\Customer\ReviewController;
+use App\Http\Controllers\Api\Web\CartController;
 use App\Http\Controllers\Api\Web\CategoryContoller;
 use App\Http\Controllers\Api\Web\ProductController as WebProductController;
 use App\Http\Controllers\Api\Web\RajaongkirController;
 use App\Http\Controllers\Api\Web\SliderController as WebSliderController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -107,12 +109,23 @@ Route::prefix('web')->group(function () {
 
     Route::get('/sliders', [WebSliderController::class, 'index'], ['as' => 'web']);
 
+    //CART ROUTE//
     //getProvince
     Route::get('/provinces', [RajaongkirController::class, 'getProvinces'], ['as' => 'web']);
-
     //getCities
     Route::post('/cities', [RajaongkirController::class, 'getCities'], ['as' => 'web']);
-
     //checkongkir
     Route::post('/ongkir', [RajaongkirController::class, 'checkOngkir'], ['as' => 'web']);
+
+    //CART//
+    //get carts data
+    Route::get('/carts', [CartController::class, 'index'], ['as' => 'web']);
+    //store
+    Route::post('/carts', [CartController::class, 'store'], ['as' => 'web']);
+    //get total price
+    Route::get('/carts/total-price', [CartController::class, 'getPrice'], ['as' => 'web']);
+    //get total weight
+    Route::get('/carts/total-weight', [CartController::class, 'getWeight'], ['as' => 'web']);
+    //remove item in cart
+    Route::post('carts/remove', [CartController::class, 'removeCart'], ['as' => 'web']);
 });
