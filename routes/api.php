@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Customer\RegisterController;
 use App\Http\Controllers\Api\Customer\ReviewController;
 use App\Http\Controllers\Api\Web\CartController;
 use App\Http\Controllers\Api\Web\CategoryContoller;
+use App\Http\Controllers\Api\Web\CheckoutController;
 use App\Http\Controllers\Api\Web\ProductController as WebProductController;
 use App\Http\Controllers\Api\Web\RajaongkirController;
 use App\Http\Controllers\Api\Web\SliderController as WebSliderController;
@@ -128,4 +129,7 @@ Route::prefix('web')->group(function () {
     Route::get('/carts/total-weight', [CartController::class, 'getWeight'], ['as' => 'web']);
     //remove item in cart
     Route::post('carts/remove', [CartController::class, 'removeCart'], ['as' => 'web']);
+
+    //Checkout
+    Route::post('/checkout', [CheckoutController::class, 'store'], ['as' => 'web']);
 });
