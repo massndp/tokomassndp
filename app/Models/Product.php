@@ -18,6 +18,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getImageAttribute($image)
+    {
+        return asset('storage/products/' . $image);
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
