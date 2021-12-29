@@ -16,7 +16,7 @@ class SliderController extends Controller
     {
         $sliders = Slider::latest()->paginate(10);
 
-        return response()->json('true', 'List data slider', $sliders);
+        return new SliderResource(true, 'List Data Sliders', $sliders);
     }
 
     public function store(Request $request)
